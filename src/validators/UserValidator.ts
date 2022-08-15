@@ -1,13 +1,18 @@
 import Joi from "joi";
 
-export interface RegistrationProps {
-    first_name: string;
-    last_name: string;
+export interface LoginProps {
     email: string;
     password: string;
+}
+
+export interface RegistrationProps extends LoginProps{
+    first_name: string;
+    last_name: string;
     username: string;
     phone_number: string;
 }
+
+
 
 export class UserValidator {
     Registration(registerProps: RegistrationProps) {
@@ -20,6 +25,18 @@ export class UserValidator {
             username: Joi.string().min(6)
         });
         const {error, value} = registerValidator.validate(registerProps)
+        if(error){
+            return error.message
+        }
+        return value;
+    }
+
+    Login(loginProps: LoginProps) {
+        const loginValidator = Joi.object<LoginProps>({
+            email: Joi.string().normalize().email().required(),
+            password: Joi.string().min(4).required(),
+        });
+        const {error, value} = loginValidator.validate(loginProps)
         if(error){
             return error.message
         }

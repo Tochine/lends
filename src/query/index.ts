@@ -1,1 +1,2 @@
-export { default as createAccount } from "./User";
+export * as UserQuery from "./User";
+// export { default as getAccounts } from "./GetUsers";
