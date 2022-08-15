@@ -22,3 +22,7 @@ export async function GetUsers () {
 export async function GetUserByEmail(data: string) {
   return await knex<User>("users").where("email", data).first<User>()
 }
+
+export async function GetUserById(data: number) {
+  return await knex<User>("users").where("id", data).first<User>()
+}

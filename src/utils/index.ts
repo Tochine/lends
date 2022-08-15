@@ -14,3 +14,16 @@ export function generateToken(length: number) {
   const token = crypto.randomBytes(length).toString("hex");
   return token;
 }
+
+export function generateRandomCode(length: number) {
+  return crypto
+    .randomBytes(length * 3)
+    .toString('base64')
+    .split('+')
+    .join('')
+    .split('/')
+    .join('')
+    .split('=')
+    .join('')
+    .substring(0, length);
+}

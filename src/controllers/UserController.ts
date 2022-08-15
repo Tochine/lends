@@ -66,19 +66,22 @@ export default class UserController {
                 user_id: result.id,
                 expires_at: date
             }
-            let session = await SessionQuery.CreateSession(data)
+            const session = await SessionQuery.CreateSession(data)
             if (session !== "session stored successfully") {
                 return res.status(400).json({
                     status: "error",
                     message: "Oops!!! something went wrong"
                 })
             }
+
+            const sessionExpiryDate = date.getTime();
      
             return res.status(200).json({
                 status: "success",
                 data: {
                     result,
-                    token: token
+                    token: token,
+                    expires_at: sessionExpiryDate
                 }
             })
         } catch (error: any) {

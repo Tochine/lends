@@ -14,5 +14,5 @@ export async function CreateSession (data: any){
 }
 
 export async function GetSessionByToken(data: string) {
-    return await knex<Session>("session").where("token", data).first<Session>()
+    return await knex<Session>("sessions").where("token", data).first<Session>()
   }

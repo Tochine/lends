@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import { SessionQuery } from "../query";
+import { AuthenticatedRequest } from ".";
 
-
-export default async (req: Request, res: Response, next: NextFunction) => {
+export default async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
     try {
         const authorization = req.header("authorization") || "";
         const token = authorization.split(' ')[1];
@@ -29,6 +29,10 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             });
         }
 
+        req.session = {
+            user_id: session.user_id,
+            token: session.token
+        }
         return next();
 
     } catch (error: any) {
