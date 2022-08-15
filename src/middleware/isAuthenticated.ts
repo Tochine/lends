@@ -1,0 +1,37 @@
+import { Request, Response, NextFunction } from "express";
+import { SessionQuery } from "../query";
+
+
+export default async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const authorization = req.header("authorization") || "";
+        const token = authorization.split(' ')[1];
+        if (!token) {
+            return res.status(400).json({
+                status: "error",
+                message: "not authenticated"
+            });
+        }
+
+        const session = await SessionQuery.GetSessionByToken(token)
+        if (!session) {
+            return res.status(400).json({
+                status: "error",
+                message: "invalid token"
+            })
+        }
+        const date = new Date(session.expires_at);
+        const currentDate = new Date();
+        if (currentDate.getTime() > date.getTime()) {
+            return res.status(400).json({
+                status: "error",
+                message: "token has expired"
+            });
+        }
+
+        return next();
+
+    } catch (error: any) {
+        return next(error)
+    }
+}
