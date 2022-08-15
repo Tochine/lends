@@ -1,18 +1,29 @@
 import express from 'express';
 import cors from 'cors';
+import session from 'express-session';
 
 import knex from "./database/connection";
+import config from "./config";
 
 const app = express();
 
 const PORT = 4000;
 
+import router from "./routes";
+
 
 
 app.use(cors());
+app.use(session({
+    secret: config.app.secret,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 120000 }
+}))
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+app.use("/api/v1", router);
 
 app.listen(PORT, async () => {
     knex.queryBuilder();
