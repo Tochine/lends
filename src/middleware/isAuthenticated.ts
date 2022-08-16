@@ -14,20 +14,24 @@ export default async (req: AuthenticatedRequest, res: Response, next: NextFuncti
         }
 
         const session = await SessionQuery.GetSessionByToken(token)
+        // console.log(session)
+
         if (!session) {
             return res.status(400).json({
                 status: "error",
                 message: "invalid token"
             })
         }
-        const date = new Date(session.expires_at);
-        const currentDate = new Date();
-        if (currentDate.getTime() > date.getTime()) {
-            return res.status(400).json({
-                status: "error",
-                message: "token has expired"
-            });
-        }
+        // const date = new Date(session.expires_at);
+        // console.log(session.expires_at);
+        // const currentDate = new Date();
+
+        // if (currentDate.getTime() > date.getTime()) {
+        //     return res.status(400).json({
+        //         status: "error",
+        //         message: "token has expired"
+        //     });
+        // }
 
         req.session = {
             user_id: session.user_id,

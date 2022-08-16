@@ -1,8 +1,8 @@
 import knex from "../database/connection";
 
 interface Session {
-  id: number;
-  user_id: number;
+  id: string;
+  user_id: string;
   token: string;
   expires_at: Date;
 

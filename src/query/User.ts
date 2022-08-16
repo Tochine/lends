@@ -2,7 +2,7 @@ import knex from "../database/connection";
 import { Request, Response } from "express"
 
 interface User {
-  id: number;
+  id: string;
   email: string;
   first_name: string;
   last_name: string;
@@ -11,8 +11,8 @@ interface User {
 }
 
 export async function CreateUser (data: any){
-  await knex<User>("users").insert({...data});
-  return "record stored successfully" 
+  await knex("users").insert({...data});
+  return "record created successfully";
 }
 
 export async function GetUsers () {

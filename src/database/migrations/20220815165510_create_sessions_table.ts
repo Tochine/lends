@@ -3,11 +3,12 @@ import { Knex } from "knex";
 
 export async function up(knex: Knex): Promise<void> {
     return knex.schema.createTable("sessions", function(table) {
-        table.increments("id").primary();
-        table.string("user_id").notNullable();
+        table.uuid("id").primary();
+        table.uuid("user_id").notNullable();
         table.string("token").notNullable();
-        table.string("expires_at").notNullable();
-        table.timestamp
+        table.date("expires_at").notNullable();
+        table.timestamp("updated_at").defaultTo(knex.fn.now());
+        table.timestamp("created_at").defaultTo(knex.fn.now());
     });
 }
 

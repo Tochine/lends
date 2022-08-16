@@ -2,7 +2,7 @@ import knex from "../database/connection";
 import { TransactionType, TransactionStatus } from "./Enum";
 
 interface Tranx {
-  id: number;
+  id: string;
   user_id: string;
   amount: number;
   reference: string;
@@ -13,6 +13,6 @@ interface Tranx {
 }
 
 export async function CreateTranx (data: any){
-  await knex<Tranx>("transaction").insert({...data});
+  await knex<Tranx>("transactions").insert({...data});
   return "transaction created successfully" 
 }

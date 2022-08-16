@@ -8,9 +8,9 @@ export interface CreditWalletProps {
 
 
 export class WalletValidator {
-    CreditWallet(creditWalletProps: CreditWalletProps) {
+    WalletRequest(creditWalletProps: CreditWalletProps) {
         const creditWalletValidator = Joi.object<CreditWalletProps>({
-            user_id: Joi.number().required(),
+            user_id: Joi.string().required(),
             amount: Joi.number().required()
         });
         const {error, value} = creditWalletValidator.validate(creditWalletProps)

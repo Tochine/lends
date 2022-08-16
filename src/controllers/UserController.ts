@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
-import  { UserQuery, SessionQuery } from "../query";
+import  { UserQuery, SessionQuery, WalletQuery } from "../query";
 import { UserValidator }from "../validators/UserValidator";
 import * as utils from "../utils";
+import { uuid } from "uuidv4";
 
 
 export default class UserController {
@@ -15,6 +16,7 @@ export default class UserController {
                 throw new Error(validationResult as string)
             }
             const data = {
+                id: uuid(),
                 first_name: validationResult.first_name,
                 last_name: validationResult.last_name,
                 email: validationResult.email,
@@ -23,6 +25,12 @@ export default class UserController {
                 username: validationResult.username
             }
             const result = await UserQuery.CreateUser(data);
+            const wallet = await WalletQuery.CreateWallet({
+                id: uuid(),
+                user_id: data.id,
+                balance: 0,
+            })
+            console.log(wallet);
             return res.status(201).json({
                 status: "success",
                 data: result
@@ -73,15 +81,13 @@ export default class UserController {
                     message: "Oops!!! something went wrong"
                 })
             }
-
-            const sessionExpiryDate = date.getTime();
      
             return res.status(200).json({
                 status: "success",
                 data: {
                     result,
                     token: token,
-                    expires_at: sessionExpiryDate
+                    expires_at: date
                 }
             })
         } catch (error: any) {
