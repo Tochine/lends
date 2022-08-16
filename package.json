@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "NODE_ENV=development nodemon src/app.ts",
+    "start": "node dist/src/app.js",
     "build": "rm -rf ./dist && tsc",
     "migrate": "knex migrate:latest --knexfile knexfile.js"
   },

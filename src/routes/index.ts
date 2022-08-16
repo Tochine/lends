@@ -5,7 +5,12 @@ import isAuthenticated from "../middleware/isAuthenticated";
 
 const router = express.Router();
 
-
+router.get("healthcheck", (req: Request, res: Response) => {
+    return res.status(200).json({
+        status: "success",
+        message: "Healthcheck successful"
+    })
+})
 router.post("/users", UserController.createUser);
 router.post("/login", UserController.login);
 router.get("/users", isAuthenticated, UserController.getUsers);
