@@ -5,7 +5,7 @@ export interface LoginProps {
     password: string;
 }
 
-export interface RegistrationProps extends LoginProps{
+export interface RegistrationProps extends LoginProps {
     first_name: string;
     last_name: string;
     username: string;

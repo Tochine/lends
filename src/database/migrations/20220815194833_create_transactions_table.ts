@@ -8,7 +8,7 @@ export async function up(knex: Knex): Promise<void> {
         table.decimal("amount").notNullable();
         table.string("reference", 100).notNullable();
         table.enu("status", ["completed", "failed", "pending"]).defaultTo(null);
-        table.enu("transaction_type", ["credit", "debit", "transfer"]).defaultTo(null);;
+        table.enu("transaction_type", ["credit", "debit", "transfer"]).defaultTo(null);
         table.text("description");
         table.timestamp("updated_at").defaultTo(knex.fn.now());
         table.timestamp("created_at").defaultTo(knex.fn.now());

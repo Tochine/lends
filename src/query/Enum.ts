@@ -8,4 +8,5 @@ export enum TransactionStatus {
     COMPLETED = "completed",
     FAILED = "failed",
     PENDING = "pending",
+    REVERSAL = "reversal"
 }
