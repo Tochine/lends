@@ -14,10 +14,10 @@ type Config = {
 }
 const config: Config = {
     env: {
-        isDevelopment: process.env.NODE_ENV!
+        isDevelopment: process.env.NODE_ENV || "development"
     },
     app: {
-        secret: process.env.SESSION_SECRET!,
+        secret: process.env.SESSION_SECRET || "@HEll01234",
         bcrypt_rounds: 10
     }
 }
