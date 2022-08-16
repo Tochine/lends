@@ -10,6 +10,7 @@ type Config = {
     app: {
         secret: string;
         bcrypt_rounds: number;
+        port: number;
     }
 }
 const config: Config = {
@@ -18,7 +19,8 @@ const config: Config = {
     },
     app: {
         secret: process.env.SESSION_SECRET || "@HEll01234",
-        bcrypt_rounds: 10
+        bcrypt_rounds: 10,
+        port: +(process.env.PORT || 4000)
     }
 }
 
