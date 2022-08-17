@@ -21,3 +21,5 @@ app.listen(config.app.port, async () => {
     knex.queryBuilder();
     console.log(`Server listening on port ${config.app.port}`);
 })
+
+export default app;
